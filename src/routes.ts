@@ -1,5 +1,6 @@
 import express, { Request, Response, Router } from 'express'
 import {MercadoPagoConfig,Payment} from 'mercadopago'
+import SendEmail from './sendEmail/sendEmail'
 const route = Router()
 
 //define as credenciais do mercado pago
@@ -44,6 +45,8 @@ console.log(data)
         res.status(500).json(error)
     })
 })
+
+route.post("/sendEmail", new SendEmail().handle)
 
 
 route.get("/", (req:Request,res:Response)=> {
