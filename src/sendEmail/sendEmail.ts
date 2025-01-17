@@ -19,7 +19,7 @@ class SendEmail {
 
     try {
         //gera o qrCode
-        const qrCodeImage = await qrcode.toDataURL(link)
+        const qrCodeImage = `https://api.qrserver.com/v1/create-qr-code/?data=${link}&size=150x150`
         
       const info = await transporter.sendMail({
         from: '"Coração Digital" <coracaovirtualsite@gmail.com>', // sender address
@@ -35,7 +35,7 @@ class SendEmail {
     <p>Agora você pode compartilhar este gesto especial com quem você ama. Para acessar o site, basta escanear o QR Code abaixo:</p>
     <div style="text-align: center; margin: 20px 0;">
       <p>Link: ${link}</p>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=${link}&size=150x150" alt="QR Code" />
+      <img src=${qrCodeImage} alt="QR Code" />
     </div>
     <h3>Como usar o QR Code?</h3>
     <ol>
