@@ -32,10 +32,9 @@ class SendEmail {
     <h1 style="text-align: center; color:rgb(255, 0, 0);">Seu site personalizado está pronto! 💖</h1>
     <p>Olá!</p>
     <p>Seu site personalizado foi criado com sucesso na <strong>Coração Digital</strong>! 🥰</p>
-    <p>Agora você pode compartilhar este gesto especial com quem você ama. Para acessar o site, basta escanear o QR Code abaixo:</p>
+    <p>Agora você pode compartilhar este gesto especial com quem você ama. Para ter acesso ao QR Code , é só clicar no link abaixo.</p>
     <div style="text-align: center; margin: 20px 0;">
-      <p>Link: ${link}</p>
-      <img src=${qrCodeImage} alt="QR Code" />
+      <p>Link: https://coracaodigital.online/qrcode/${link}</p>
     </div>
     <h3>Como usar o QR Code?</h3>
     <ol>
