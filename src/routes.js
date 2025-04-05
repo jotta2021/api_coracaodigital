@@ -8,12 +8,16 @@ const mercadopago_1 = require("mercadopago");
 const sendEmail_1 = __importDefault(require("./sendEmail/sendEmail"));
 const route = (0, express_1.Router)();
 //define as credenciais do mercado pago
-const client = new mercadopago_1.MercadoPagoConfig({ accessToken: 'APP_USR-5826761173699359-011510-198162a205a1fc7c7a169e6390ee07c1-213665539', options: { timeout: 5000, idempotencyKey: 'abc' } });
+const client = new mercadopago_1.MercadoPagoConfig({
+    accessToken: "APP_USR-5826761173699359-011510-198162a205a1fc7c7a169e6390ee07c1-213665539",
+    options: { timeout: 5000, idempotencyKey: "abc" },
+});
 const payment = new mercadopago_1.Payment(client);
 route.post("/process_payment", (req, res) => {
     const idempotencyKey = `payment_${Date.now()}`;
     console.log(req.body);
-    payment.create({
+    payment
+        .create({
         body: {
             transaction_amount: req.body.transaction_amount,
             description: req.body.description,
@@ -22,22 +26,30 @@ route.post("/process_payment", (req, res) => {
                 email: req.body.email,
                 identification: {
                     type: req.body.identificationType,
-                    number: req.body.number
-                }
-            }
+                    number: req.body.number,
+                },
+            },
         },
-        requestOptions: { idempotencyKey: idempotencyKey }
-    }).then(response => {
+        requestOptions: { idempotencyKey: idempotencyKey },
+    })
+        .then((response) => {
         res.status(200).send(response);
-    }).catch(error => {
+    })
+        .catch((error) => {
         res.status(500).send(error);
     });
+});
+// rota responsavel por receber notificacoes de pagamento webhook
+route.post("/webhook", (req, res) => {
+    const data = req.body;
+    console.log("Notificacao recebida", data);
 });
 route.get("/payment", (req, res) => {
     const { id } = req.query;
     //verifica o status do pagamento
-    payment.get({
-        id: String(id)
+    payment
+        .get({
+        id: String(id),
     })
         .then((data) => {
         console.log(data);
@@ -65,4 +77,4 @@ codigo: 123
 
 
 //https://api.mercadopago.com
- */ 
+ */
